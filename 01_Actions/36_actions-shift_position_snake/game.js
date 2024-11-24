@@ -14,26 +14,34 @@ class Example extends Phaser.Scene
     create ()
     {
         this.add.image(400, 300, 'sky');
+        // Crea la imagen de fondo en el centro de la pantalla de juego (x:400 y:300)
 
-        //  Create a series of sprites, with a block as the 'head'
+        //  Create a series of sprites, with a block as the 'head':
+        let head;   // crea 'head' como variable
+        const snake = []; // crea 'snake' como un array
 
-        let head;
-        const snake = [];
-
-        for (let i = 0; i < 12; i++)
+        for (let i = 0; i < 12; i++)    // repite este proceso 12 veces
         {
+            // distribuciún de los bloques
             const part = this.add.image(64 + i * 32, 128, 'blocks', 1);
+            /*  Distribuye los 12 bloques en:
+                x: 64px del borde izq. + 32px * i (32x0, 32x1, 32x2, 32x3) / Esto crea un bloque cada 32px, alineándolos horizontalmente.
+                y: 128px del borde superior
+                key: 'blocks'
+                index of 'blocks': 1
+            */
 
-            part.setOrigin(0, 0);
+            part.setOrigin(0, 0);   // Posiciona el origin de cada bloque en la su esquina sup. izq.
 
-            if (i === 11)
+            // si estamos en el último bloque...
+            if (i === 11)   // Si el valor de i es 11 (estamos dentro de un ciclo for q itera 12 veces, empezando con i=0, por lo tanto i=11 representa al último bloque)
             {
-                part.setFrame(0);
-
-                head = part;
+                // cabeza de la serpiente:
+                part.setFrame(0);   // Establece un frame diferente para el último bloque
+                head = part;    // asiga este bloque distinto a la variable 'head'
             }
 
-            snake.push(part);
+            snake.push(part);   // empuja el bloque al array 'snake'
         }
 
         //  0 = left
