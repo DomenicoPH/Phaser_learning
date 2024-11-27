@@ -18,7 +18,7 @@ class Example extends Phaser.Scene
 
         //  Create a series of sprites, with a block as the 'head':
         let head;   // crea 'head' como variable
-        const snake = []; // crea 'snake' como un array
+        const snake = []; // crea 'snake' como un array vacio
 
         for (let i = 0; i < 12; i++)    // repite este proceso 12 veces
         {
@@ -48,46 +48,47 @@ class Example extends Phaser.Scene
         //  1 = right
         //  2 = up
         //  3 = down
-        let direction = 3;
-        let distance = Phaser.Math.Between(4, 8);
+        let direction = 3;                              // establece la velocidad en: 3
+        let distance = Phaser.Math.Between(4, 8);       // establece la distancia en: un valor alatorio entre 4 y 8
 
         //  Create a movement timer - every 100ms we'll move the 'snake'
 
         this.time.addEvent({ delay: 100, loop: true, callback: () => {
+        //  Crea un temporizador infinito que cada 100ms ejecuta:
 
-            let x = head.x;
-            let y = head.y;
+            let x = head.x; // coordenada en 'x' de la cabeza de la serpiente
+            let y = head.y; // coordenada en 'y' de la cabeza de la serpiente
 
-            if (direction === 0)
+            if (direction === 0)    // si la dirección es 0 = left
             {
-                x = Phaser.Math.Wrap(x - 32, 0, 800);
+                x = Phaser.Math.Wrap(x - 32, 0, 800);   // resta 32 a la pos. en 'x' en un rango de 0 - 800
             }
-            else if (direction === 1)
+            else if (direction === 1)   // si la dirección es 1 = right
             {
-                x = Phaser.Math.Wrap(x + 32, 0, 800);
+                x = Phaser.Math.Wrap(x + 32, 0, 800);   // suma 32 a la pos. en 'x' en un rango de 0 - 800
             }
-            else if (direction === 2)
+            else if (direction === 2)   // si la dirección es 2 = up
             {
-                y = Phaser.Math.Wrap(y - 32, 0, 576);
+                y = Phaser.Math.Wrap(y - 32, 0, 576);   // resta 32 a la pos. en 'y' en un rango de 0 - 576
             }
-            else if (direction === 3)
+            else if (direction === 3)   // si la dirección es 3 = down
             {
-                y = Phaser.Math.Wrap(y + 32, 0, 576);
+                y = Phaser.Math.Wrap(y + 32, 0, 576);   // suma 32 a la pos. en 'y' en un rango de 0 - 576
             }
 
-            Phaser.Actions.ShiftPosition(snake, x, y);
+            Phaser.Actions.ShiftPosition(snake, x, y);  // todos los bloques de la serpiente toma la posición dinámica de x y
 
-            distance--;
+            distance--; // resta 1 al valor de 'distance' (La distancia disminuye en 1 en cada iteración hasta llegar a 0 para luego cambiar de dirección y reiniciar el ciclo)
 
-            if (distance === 0)
+            if (distance === 0) // si la distancia es igual a 0 ejecuta lo siguiente:
             {
-                if (direction <= 1)
+                if (direction <= 1) // si la dirección es menor o igual a 1 (0, 1) = (left, right) coords. en x
                 {
-                    direction = Phaser.Math.Between(2, 3);
+                    direction = Phaser.Math.Between(2, 3);  // asigna una dirección en 'y'
                 }
-                else
+                else                // si la dirección es mayor a 1 (2, 3) = (uup, down) coords. en y
                 {
-                    direction = Phaser.Math.Between(0, 1);
+                    direction = Phaser.Math.Between(0, 1);  // asigna una dirección en 'x'
                 }
 
                 distance = Phaser.Math.Between(4, 12);
