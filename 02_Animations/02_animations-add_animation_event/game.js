@@ -16,14 +16,19 @@ class Example extends Phaser.Scene
     {
         this.add.text(400, 32, 'Click to create animations', { color: '#00ff00' })
             .setOrigin(0.5, 0);
+            /*
+                Crea el texto, establece su origen en el medio/superior 
+                y utiliza esta referencia para posicionar el texto en x:400 y:32
+            */
 
         //  Each time a new animation is added to the Animation Manager we'll call this function
         this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, this.addAnimation, this);
 
-        this.i = 0;
+        this.i = 0; //this.i vale 0
 
         //  Click to add an animation
         this.input.on('pointerup', function () {
+            // Cada vez que se haga click se ejecutara el switch (this.i empieza valiendo 0)
             switch (this.i)
             {
                 case 0:
@@ -42,7 +47,7 @@ class Example extends Phaser.Scene
                     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
                     break;
             }
-            this.i++;
+            this.i++; //suma 1 a this.i
         }, this);
     }
 
@@ -52,6 +57,7 @@ class Example extends Phaser.Scene
             .play(key);
         this.y += 100;
     }
+
 }
 
 const config = {
